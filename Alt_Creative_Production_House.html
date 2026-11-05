@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<!-- saved from url=(0092) -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Alt+Creative — Creative Production House</title>
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #09070d;
+    --surface: #15101c;
+    --line: #2a2233;
+    --text: #fdf6ee;
+    --muted: #a39aab;
+    --accent: #ff7a1a;
+    --accent-2: #ff2d95;
+    --accent-3: #8a2bff;
+    --accent-4: #1fd4ff;
+    --grad: linear-gradient(90deg, #ff8a00, #ff2d95 40%, #8a2bff 70%, #1fd4ff);
+    --font-display: "Space Grotesk", "Helvetica Neue", Arial, sans-serif;
+    --font-body: "Inter", system-ui, -apple-system, sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, monospace;
+    color-scheme: dark;
+  }
+  @media (prefers-color-scheme: light) {
+    :root:not([data-theme="dark"]) {
+      --bg: #f4f2ed;
+      --surface: #ffffff;
+      --line: #dcd9d0;
+      --text: #111114;
+      --muted: #6a6974;
+      --accent: #e8480c;
+      --accent-2: #d81b78;
+      --grad: linear-gradient(90deg, #ff8a00, #d81b78 40%, #6d1fd6 70%, #0aa8d6);
+      color-scheme: light;
+    }
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-weight: 300;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  a { color: inherit; text-decoration: none; }
+  img, svg { max-width: 100%; display: block; }
+  .wrap { width: min(1200px, 92%); margin: 0 auto; }
+  .mono { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+  .plus { color: var(--accent); }
+
+  /* Header */
+  header {
+    position: fixed; top: env(safe-area-inset-top, 0px); left: 0; right: 0; z-index: 50;
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    background: color-mix(in srgb, var(--bg) 75%, transparent);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; height: 68px; }
+  .brand { display: inline-flex; flex-direction: column; gap: .3rem; line-height: 1; }
+  .brand-top { display: inline-flex; align-items: flex-end; font-family: var(--font-display); font-weight: 700; font-size: 1.6rem; letter-spacing: -0.03em; }
+  .mark { height: 1.05em; width: auto; }
+  .lt { color: var(--text); margin-left: .04em; }
+  .brand-top .plus { font-size: .85em; margin-left: .06em; display: inline-block; align-self: flex-start; transition: transform .5s cubic-bezier(.2,.7,.2,1); }
+  .brand:hover .plus { transform: rotate(90deg); }
+  .sub { font-family: var(--font-body); font-weight: 500; font-size: .5rem; letter-spacing: .55em; text-transform: uppercase; color: var(--text); padding-left: .1em; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { font-size: 0.9rem; color: var(--muted); transition: color .2s; }
+  .nav-links a:hover { color: var(--text); }
+  .btn {
+    display: inline-flex; align-items: center; gap: .5rem;
+    padding: .85rem 1.4rem; border-radius: 999px; border: 1px solid var(--text);
+    font-family: var(--font-body); font-size: .9rem; font-weight: 500;
+    background: transparent; color: var(--text); cursor: pointer; transition: all .25s;
+  }
+  .btn:hover { background: var(--text); color: var(--bg); }
+  .btn.solid { background: var(--grad); border-color: transparent; color: #fff; }
+  .btn.solid:hover { background: var(--text); border-color: var(--text); color: var(--bg); }
+  .menu-toggle { display: none; background: none; border: 0; color: var(--text); font-size: 1.5rem; cursor: pointer; }
+
+  /* Hero */
+  .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 120px 0 60px; position: relative; overflow: hidden; }
+  .hero::before {
+    content: ""; position: absolute; width: 60vmax; height: 60vmax; right: -20vmax; top: -10vmax;
+    background: radial-gradient(circle, color-mix(in srgb, var(--accent) 22%, transparent), transparent 65%);
+    filter: blur(40px); pointer-events: none;
+  }
+  .hero h1 {
+    font-family: var(--font-display); font-weight: 500;
+    font-size: clamp(2.8rem, 8.5vw, 7.5rem); line-height: .95; letter-spacing: -0.04em;
+    margin: 1.2rem 0 2rem; max-width: 14ch;
+  }
+  .hero h1 em { font-style: normal; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .hero p.lead { max-width: 52ch; font-size: clamp(1rem, 1.6vw, 1.2rem); color: var(--muted); margin-bottom: 2.5rem; }
+  .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .stats {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line);
+    border: 1px solid var(--line); margin-top: 5rem; border-radius: 16px; overflow: hidden;
+  }
+  .stat { background: var(--bg); padding: 1.6rem; }
+  .stat strong { display: block; font-family: var(--font-display); font-size: 2.4rem; font-weight: 500; letter-spacing: -0.03em; }
+
+  /* Marquee */
+  .marquee { border-block: 1px solid var(--line); overflow: hidden; padding: 1.2rem 0; white-space: nowrap; }
+  .marquee-track { display: inline-flex; gap: 3rem; animation: scroll 35s linear infinite; font-family: var(--font-display); font-size: clamp(1.4rem, 3vw, 2.2rem); color: var(--muted); }
+  .marquee-track span::after { content: "✶"; margin-left: 3rem; color: var(--accent); }
+  @keyframes scroll { to { transform: translateX(-50%); } }
+
+  /* Sections */
+  section { padding: clamp(5rem, 10vw, 9rem) 0; }
+  .section-head { display: flex; justify-content: space-between; align-items: end; gap: 2rem; flex-wrap: wrap; margin-bottom: 3rem; }
+  .section-head h2 { font-family: var(--font-display); font-weight: 500; font-size: clamp(2.2rem, 5vw, 4rem); letter-spacing: -0.03em; line-height: 1; margin-top: .8rem; }
+
+  /* Work */
+  .filters { display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: 2rem; }
+  .filter {
+    padding: .5rem 1rem; border-radius: 999px; border: 1px solid var(--line); background: none;
+    color: var(--muted); font: inherit; font-size: .85rem; cursor: pointer; transition: all .2s;
+  }
+  .filter.active, .filter:hover { border-color: var(--accent); color: var(--text); }
+  .filter.active { background: var(--accent); color: #0b0b0d; }
+  .work-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 1.25rem; }
+  .card { grid-column: span 6; position: relative; border-radius: 18px; overflow: hidden; background: var(--surface); border: 1px solid var(--line); transition: transform .4s, opacity .4s; cursor: pointer; }
+  .card.wide { grid-column: span 12; }
+  .card:hover { transform: translateY(-4px); }
+  .card-media { aspect-ratio: 16 / 9; position: relative; overflow: hidden; }
+  .card.wide .card-media { aspect-ratio: 21 / 8; }
+  .card-media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,.55), transparent 55%); }
+  .card-media .shape { position: absolute; transition: transform .8s cubic-bezier(.2,.7,.2,1); }
+  .card:hover .shape { transform: scale(1.08) rotate(4deg); }
+  .card-info { position: absolute; left: 1.4rem; right: 1.4rem; bottom: 1.2rem; z-index: 2; display: flex; justify-content: space-between; align-items: end; color: #fff; }
+  .card-info h3 { font-family: var(--font-display); font-weight: 500; font-size: 1.5rem; letter-spacing: -0.02em; }
+  .card-info .mono { color: rgba(255,255,255,.75); }
+  .card.hidden { display: none; }
+
+  /* Services */
+  .services { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); }
+  .service { padding: 2.2rem 1.6rem 2.6rem 0; border-bottom: 1px solid var(--line); transition: padding .3s; }
+  .service:nth-child(n+4) { border-bottom: 0; }
+  .service:hover { padding-left: .8rem; }
+  .service .mono { color: var(--accent); }
+  .service h3 { font-family: var(--font-display); font-weight: 500; font-size: 1.6rem; letter-spacing: -0.02em; margin: .9rem 0 .6rem; }
+  .service p { color: var(--muted); font-size: .95rem; }
+
+  /* Process */
+  .process { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; }
+  .step { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 2rem; min-height: 260px; display: flex; flex-direction: column; }
+  .step .num { font-family: var(--font-display); font-size: 3.5rem; color: var(--accent); line-height: 1; letter-spacing: -0.04em; }
+  .step h3 { font-family: var(--font-display); font-weight: 500; font-size: 1.4rem; margin: auto 0 .6rem; padding-top: 2rem; }
+  .step p { color: var(--muted); font-size: .92rem; }
+
+  /* Studio */
+  .studio { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(2rem, 6vw, 6rem); align-items: start; }
+  .studio h2 { font-family: var(--font-display); font-weight: 500; font-size: clamp(2.2rem, 4.5vw, 3.6rem); letter-spacing: -0.03em; line-height: 1.05; margin: .8rem 0 1.5rem; }
+  .studio p { color: var(--muted); margin-bottom: 1rem; max-width: 56ch; }
+  .team { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 18px; overflow: hidden; }
+  .member { background: var(--bg); padding: 1.6rem; }
+  .avatar { width: 56px; height: 56px; border-radius: 50%; margin-bottom: 1rem; }
+  .member strong { display: block; font-family: var(--font-display); font-weight: 500; font-size: 1.1rem; }
+  .member span { font-size: .85rem; color: var(--muted); }
+
+  /* Clients + quote */
+  .clients { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1.5rem 2.5rem; padding: 2.5rem 0; border-block: 1px solid var(--line); font-family: var(--font-display); font-size: 1.3rem; color: var(--muted); }
+  .quote { max-width: 980px; margin: 0 auto; text-align: left; }
+  .quote blockquote { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.6rem, 3.6vw, 2.7rem); line-height: 1.2; letter-spacing: -0.02em; margin: 1.5rem 0; }
+  .quote cite { font-style: normal; color: var(--muted); font-size: .95rem; }
+
+  /* Contact */
+  .contact { background: var(--surface); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: clamp(2rem, 6vw, 6rem); }
+  .contact h2 { font-family: var(--font-display); font-weight: 500; font-size: clamp(2.6rem, 6vw, 5rem); letter-spacing: -0.04em; line-height: .95; margin: .8rem 0 1.5rem; }
+  .contact a.big { font-family: var(--font-display); font-size: clamp(1.2rem, 2.4vw, 1.8rem); color: var(--accent); border-bottom: 1px solid var(--accent); }
+  .form { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .field { display: flex; flex-direction: column; gap: .45rem; }
+  .field.full { grid-column: 1 / -1; }
+  .field label { font-size: .8rem; color: var(--muted); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: .06em; }
+  .field input, .field select, .field textarea {
+    background: var(--bg); border: 1px solid var(--line); border-radius: 12px; padding: .9rem 1rem;
+    color: var(--text); font: inherit; font-size: .95rem; outline: none; transition: border-color .2s; width: 100%;
+  }
+  .field textarea { min-height: 130px; resize: vertical; }
+  .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--accent); }
+  .form .btn { justify-self: start; }
+  .form-note { color: var(--accent); font-size: .95rem; min-height: 1.5em; }
+
+  /* Footer */
+  footer { padding: 3rem 0 2.5rem; }
+  .foot { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem; align-items: center; }
+  .foot nav { display: flex; gap: 1.5rem; }
+  .foot nav a { color: var(--muted); font-size: .9rem; }
+  .foot nav a:hover { color: var(--text); }
+
+  /* Reveal */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity .8s ease, transform .8s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  /* Responsive */
+  @media (max-width: 960px) {
+    .nav-links, .nav > .btn { display: none; }
+    .menu-toggle { display: block; }
+    header.open .nav-links {
+      display: flex; flex-direction: column; position: absolute; top: 68px; left: 0; right: 0;
+      background: var(--bg); padding: 1.5rem 4%; gap: 1.2rem; border-bottom: 1px solid var(--line);
+    }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .process { grid-template-columns: 1fr 1fr; }
+    .studio, .contact-grid { grid-template-columns: 1fr; }
+    .services { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 640px) {
+    .card, .card.wide { grid-column: span 12; }
+    .card.wide .card-media { aspect-ratio: 16 / 10; }
+    .services, .process, .team, .form { grid-template-columns: 1fr; }
+    .service:nth-child(n+4) { border-bottom: 1px solid var(--line); }
+    .service:last-child { border-bottom: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+    .reveal { opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<header id="top-bar" class="">
+  <div class="wrap nav">
+    <a href="#top" class="brand" aria-label="Alt+Creative home"><span class="brand-top"><svg class="mark" viewBox="0 0 48 36" aria-hidden="true"><defs><linearGradient id="altg" gradientUnits="userSpaceOnUse" x1="0" y1="2" x2="0" y2="34"><stop offset="0" stop-color="#ff8a00"></stop><stop offset=".5" stop-color="#ff2d95"></stop><stop offset="1" stop-color="#ff2d95"></stop></linearGradient></defs><path d="M4 33 L24 6 L44 33" fill="none" stroke="url(#altg)" stroke-width="9" stroke-linejoin="round" stroke-linecap="round"></path></svg><span class="lt">LT</span><span class="plus">+</span></span><span class="sub">Creative</span></a>
+    <ul class="nav-links">
+      <li><a href="#work">Work</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#studio">Studio</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#contact" class="btn solid">Start a project</a>
+    <button class="menu-toggle" aria-label="Toggle menu" id="menu-btn">☰</button>
+  </div>
+</header>
+
+<main>
+  <div class="hero wrap" id="top">
+    <span class="mono">Creative Production House · Est. 2026</span>
+    <h1>Your Shortcut to Creativity</h1>
+    <p class="lead">Alt+Creative is a full-service production house crafting films, brand identities, motion, and imagery for ambitious brands. From first concept to final delivery, we handle every frame.</p>
+    <div class="hero-ctas">
+      <a href="#work" class="btn solid">View our work →</a>
+      <a href="#contact" class="btn">Book a call</a>
+    </div>
+    <div class="stats">
+      <div class="stat"><strong>15+</strong><span class="mono">Projects delivered</span></div>
+      <div class="stat"><strong>7</strong><span class="mono">Brand partners</span></div>
+      
+      
+    </div>
+  </div>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>Film &amp; Commercials</span><span>Brand Identity</span><span>Motion Design</span><span>Photography</span><span>3D &amp; VFX</span><span>Post &amp; Color</span>
+      <span>Film &amp; Commercials</span><span>Brand Identity</span><span>Motion Design</span><span>Photography</span><span>3D &amp; VFX</span><span>Post &amp; Color</span>
+    </div>
+  </div>
+
+  <!-- WORK -->
+  <section id="work">
+    <div class="wrap">
+      <div class="section-head reveal in">
+        <div>
+          <span class="mono">01 — Selected work</span>
+          <h2>Recent projects</h2>
+        </div>
+        <div class="filters" role="tablist">
+          <button class="filter active" data-filter="all">All</button>
+          <button class="filter" data-filter="film">Film</button>
+          <button class="filter" data-filter="brand">Brand</button>
+          <button class="filter" data-filter="motion">Motion</button>
+          <button class="filter" data-filter="photo">Photo</button>
+        </div>
+      </div>
+
+      <div class="work-grid">
+        <article class="card wide reveal in" data-cat="film">
+          <div class="card-media" style="background: linear-gradient(135deg,#1d2b4a,#0b0b0d 70%);">
+            <div class="shape" style="right:12%; top:-20%; width:55%; aspect-ratio:1; border-radius:50%; background: radial-gradient(circle at 30% 30%, #ffb36b, #d1452a 60%, transparent 70%);"></div>
+          </div>
+          <div class="card-info"><div><h3>Ember Hours</h3><span class="mono">Short film · Nordic Spirits · 2025</span></div><span class="mono">Film</span></div>
+        </article>
+
+        <article class="card reveal in" data-cat="brand">
+          <div class="card-media" style="background: linear-gradient(135deg,#ff8a00,#ff2d95 55%,#8a2bff);">
+            <div class="shape" style="left:10%; bottom:-30%; width:70%; aspect-ratio:1; border-radius:0; background:#0b0b0d; transform: rotate(12deg);"></div>
+          </div>
+          <div class="card-info"><div><h3>Kinetic Identity</h3><span class="mono">Brand system · Volta Mobility · 2025</span></div><span class="mono">Brand</span></div>
+        </article>
+
+        <article class="card reveal in" data-cat="motion">
+          <div class="card-media" style="background: linear-gradient(160deg,#5b21b6,#0f172a);">
+            <div class="shape" style="inset:18%; border:2px solid rgba(255,255,255,.7); border-radius:999px;"></div>
+            <div class="shape" style="inset:32%; border:2px solid #1fd4ff; border-radius:999px;"></div>
+          </div>
+          <div class="card-info"><div><h3>Pulse Loop</h3><span class="mono">Motion campaign · Lumen Audio · 2024</span></div><span class="mono">Motion</span></div>
+        </article>
+
+        <article class="card reveal in" data-cat="photo">
+          <div class="card-media" style="background: linear-gradient(200deg,#3f3f46,#18181b);">
+            <div class="shape" style="left:20%; top:22%; width:60%; height:56%; background: linear-gradient(135deg,#e7e5e4,#78716c); border-radius:4px;"></div>
+          </div>
+          <div class="card-info"><div><h3>Quiet Luxury</h3><span class="mono">Editorial · Maison Ardent · 2024</span></div><span class="mono">Photo</span></div>
+        </article>
+
+        <article class="card reveal in" data-cat="film">
+          <div class="card-media" style="background: linear-gradient(120deg,#064e3b,#022c22);">
+            <div class="shape" style="left:-10%; bottom:-20%; width:80%; aspect-ratio:1; border-radius:50%; background: radial-gradient(circle, #6ee7b7, transparent 65%); opacity:.7;"></div>
+          </div>
+          <div class="card-info"><div><h3>The Long Road</h3><span class="mono">Documentary · Terra Foods · 2024</span></div><span class="mono">Film</span></div>
+        </article>
+
+        <article class="card reveal in" data-cat="motion">
+          <div class="card-media" style="background: linear-gradient(90deg,#f97316,#be123c);">
+            <div class="shape" style="left:12%; top:12%; width:40%; height:76%; background:#0b0b0d; border-radius:12px; transform: rotate(-8deg);"></div>
+            <div class="shape" style="right:12%; top:20%; width:34%; height:60%; background:#f2f0eb; border-radius:12px; transform: rotate(6deg);"></div>
+          </div>
+          <div class="card-info"><div><h3>App Launch Reel</h3><span class="mono">Product motion · Strata · 2025</span></div><span class="mono">Motion</span></div>
+        </article>
+
+        <article class="card reveal in" data-cat="brand">
+          <div class="card-media" style="background: #f4f2ed;">
+            <div class="shape" style="left:15%; top:15%; width:70%; height:70%; background: repeating-linear-gradient(45deg,#0b0b0d 0 12px,#f4f2ed 12px 24px); opacity:.9;"></div>
+          </div>
+          <div class="card-info" style="color:#0b0b0d;"><div><h3 style="color:#0b0b0d;">Bold Type Co.</h3><span class="mono" style="color:#555;">Packaging · Crate Coffee · 2023</span></div><span class="mono" style="color:#555;">Brand</span></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="wrap">
+      <div class="section-head reveal in">
+        <div>
+          <span class="mono">02 — What we do</span>
+          <h2>Full-service production</h2>
+        </div>
+        <p class="mono" style="max-width:36ch;">One team, from the idea to the final export.</p>
+      </div>
+      <div class="services">
+        <div class="service reveal in"><span class="mono">01</span><h3>Film &amp; Commercials</h3><p>Concept development, direction, casting, location scouting, and full-scale shoots.</p></div>
+        <div class="service reveal in"><span class="mono">02</span><h3>Brand Identity</h3><p>Logos, visual systems, typography, and guidelines that work across every touchpoint.</p></div>
+        <div class="service reveal in"><span class="mono">03</span><h3>Motion &amp; Animation</h3><p>2D and 3D motion graphics, title sequences, explainers, and social-first content.</p></div>
+        <div class="service reveal in"><span class="mono">04</span><h3>Photography</h3><p>Product, editorial, lifestyle, and campaign photography with in-house styling.</p></div>
+        <div class="service reveal in"><span class="mono">05</span><h3>3D &amp; Virtual Production</h3><p>Product visualization, CGI environments, and LED volume stage production.</p></div>
+        <div class="service reveal in"><span class="mono">06</span><h3>Post &amp; Color</h3><p>Editing, color grading, sound design, and mastering for every platform and format.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section id="process" style="padding-top:0;">
+    <div class="wrap">
+      <div class="section-head reveal in">
+        <div>
+          <span class="mono">03 — How we work</span>
+          <h2>From brief to delivery</h2>
+        </div>
+      </div>
+      <div class="process">
+        <div class="step reveal in"><span class="num">01</span><h3>Discover</h3><p>We learn your goals, audience, and constraints through a focused briefing session.</p></div>
+        <div class="step reveal in"><span class="num">02</span><h3>Concept</h3><p>Moodboards, scripts, and creative routes presented for feedback before production begins.</p></div>
+        <div class="step reveal in"><span class="num">03</span><h3>Produce</h3><p>Shoot days, builds, and animation with a dedicated producer keeping time and budget on track.</p></div>
+        <div class="step reveal in"><span class="num">04</span><h3>Deliver</h3><p>Finished masters, cutdowns, and every format your channels need, delivered on schedule.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STUDIO -->
+  <section id="studio" style="padding-top:0;">
+    <div class="wrap studio">
+      <div class="reveal in">
+        <span class="mono">04 — The studio</span>
+        <h2>Small enough to care. Big enough to deliver.</h2>
+        <p>Alt+Creative was founded by and for People who are tired of handing work between agencies. We built a house where the whole crew sits in one room, from the first sketch to the final grade.</p>
+        <p>Our studio operates with a flexible network of freelance talent, so we can scale a shoot up or down without compromising on the craft or the people behind it.</p>
+      </div>
+      <div class="team reveal in">
+        <div class="member"><div class="avatar" style="background:linear-gradient(135deg,#ff8a00,#ff2d95);"></div><strong>Your Name</strong><span>Founder &amp; Creative Director</span></div>
+        <div class="member"><div class="avatar" style="background:linear-gradient(135deg,#fb923c,#9a3412);"></div><strong>Team Member</strong><span>Executive Producer</span></div>
+        <div class="member"><div class="avatar" style="background:linear-gradient(135deg,#60a5fa,#1e3a8a);"></div><strong>Team Member</strong><span>Director of Photography</span></div>
+        <div class="member"><div class="avatar" style="background:linear-gradient(135deg,#c084fc,#581c87);"></div><strong>Team Member</strong><span>Head of Motion</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLIENTS -->
+  <div class="wrap">
+    <div class="clients reveal in">
+      <span>Nordic Spirits</span><span>Volta</span><span>Lumen Audio</span><span>Maison Ardent</span><span>Terra Foods</span><span>Strata</span>
+    </div>
+  </div>
+
+  <!-- TESTIMONIAL -->
+  <section>
+    <div class="wrap quote reveal in">
+      <span class="mono">05 — Kind words</span>
+      <blockquote>“Alt+Creative didn’t just make our campaign look great. They made it feel like ours.”</blockquote>
+      <cite>— Marketing Director, Volta Mobility</cite>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="wrap contact-grid">
+      <div class="reveal in">
+        <span class="mono">06 — Let’s talk</span>
+        <h2>Have a story<span class="plus">?</span></h2>
+        <p style="color:var(--muted); margin-bottom:2rem; max-width:40ch;">Tell us about your project. We reply within two business days with next steps.</p>
+        <a class="big" href="mailto:hello@altcreative.studio">hello@altcreative.studio</a>
+        <p class="mono" style="margin-top:2rem;">Hyderabad · Available worldwide</p>
+      </div>
+      <form class="form reveal in" id="contact-form">
+        <div class="field"><label for="name">Name</label><input id="name" type="text" required="" placeholder="Your name"></div>
+        <div class="field"><label for="email">Email</label><input id="email" type="email" required="" placeholder="you@company.com"></div>
+        <div class="field"><label for="company">Company</label><input id="company" type="text" placeholder="Company or brand"></div>
+        <div class="field"><label for="budget">Budget</label>
+          <select id="budget">
+            <option>Under $10k</option><option>$10k – $50k</option><option>$50k – $150k</option><option>$150k+</option>
+          </select>
+        </div>
+        <div class="field full"><label for="type">Project type</label>
+          <select id="type">
+            <option>Film &amp; commercial</option><option>Brand identity</option><option>Motion &amp; animation</option><option>Photography</option><option>3D / virtual production</option><option>Not sure yet</option>
+          </select>
+        </div>
+        <div class="field full"><label for="msg">Tell us about it</label><textarea id="msg" placeholder="Goals, timeline, anything that helps"></textarea></div>
+        <button class="btn solid" type="submit">Send inquiry →</button>
+        <p class="form-note" id="form-note" role="status"></p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <a href="#top" class="brand" aria-label="Alt+Creative home"><span class="brand-top"><svg class="mark" viewBox="0 0 48 36" aria-hidden="true"><path d="M4 33 L24 6 L44 33" fill="none" stroke="url(#altg)" stroke-width="9" stroke-linejoin="round" stroke-linecap="round"></path></svg><span class="lt">LT</span><span class="plus">+</span></span><span class="sub">Creative</span></a>
+    <nav>
+      <a href="#work">Work</a><a href="#services">Services</a><a href="#studio">Studio</a><a href="#contact">Contact</a>
+    </nav>
+    <span class="mono">© 2026 Alt+Creative</span>
+  </div>
+</footer>
+
+<script>
+  // Mobile menu
+  const header = document.getElementById('top-bar');
+  document.getElementById('menu-btn').addEventListener('click', () => header.classList.toggle('open'));
+  document.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', () => header.classList.remove('open')));
+
+  // Work filter
+  const filters = document.querySelectorAll('.filter');
+  const cards = document.querySelectorAll('.card');
+  filters.forEach(btn => btn.addEventListener('click', () => {
+    filters.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const f = btn.dataset.filter;
+    cards.forEach(c => c.classList.toggle('hidden', f !== 'all' && c.dataset.cat !== f));
+  }));
+
+  // Scroll reveal
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Contact form (front-end only; connect to your email service or backend)
+  document.getElementById('contact-form').addEventListener('submit', e => {
+    e.preventDefault();
+    document.getElementById('form-note').textContent = 'Thanks, we’ve received your inquiry and will be in touch within two business days.';
+    e.target.reset();
+  });
+</script>
+
+
+</body></html>
